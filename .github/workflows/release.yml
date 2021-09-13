@@ -18,4 +18,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: release.txt
-          message: 'Published release ${{ steps.get_version.outputs.VERSION }}'
+          body: 'Published release ${{ steps.get_version.outputs.VERSION }}'

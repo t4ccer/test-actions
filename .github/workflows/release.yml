@@ -1,0 +1,17 @@
+on:
+  release:
+    types:
+      - created
+name: Publish release
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create package
+        run: |
+          echo 'Created release ${{ GITHUB_REF }}' > release.txt
+      - name: Update release
+        uses: johnwbyrd/update-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: release.txt

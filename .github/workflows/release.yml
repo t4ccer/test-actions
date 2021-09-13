@@ -7,11 +7,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Create package
         run: |
-          echo 'Created release ${{ GITHUB_REF }}' > release.txt
+          echo 'Created release ${{ steps.get_version.outputs.VERSION }}' > release.txt
       - name: Update release
         uses: johnwbyrd/update-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: release.txt
+          message: 'Published release ${{ steps.get_version.outputs.VERSION }}'
